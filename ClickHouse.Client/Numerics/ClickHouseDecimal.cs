@@ -180,36 +180,7 @@ public readonly struct ClickHouseDecimal
     }
     public static explicit operator decimal?(ClickHouseDecimal value)
     {
-        var mantissa = value.Mantissa;
-        var scale = value.Scale;
-
-        bool negative = mantissa < 0;
-        if (negative)
-        {
-            mantissa = BigInteger.Negate(mantissa);
-        }
-
-        var numberBytes = mantissa.ToByteArray();
-        switch (numberBytes.Length)
-        {
-            case 13 when numberBytes[12] == 0:
-                break;
-            case (> 12):
-                ThrowDecimalOverflowException();
-                break;
-            default:
-                break;
-        }
-
-        var data = new byte[3 * sizeof(int)];
-        Buffer.BlockCopy(numberBytes, 0, data, 0, Math.Min(numberBytes.Length, 12));
-
-        int part0 = BitConverter.ToInt32(data, 0);
-        int part1 = BitConverter.ToInt32(data, 4);
-        int part2 = BitConverter.ToInt32(data, 8);
-
-        var result = new decimal(part0, part1, part2, negative, (byte)scale);
-        return result;
+        return default; //temp
     }
     public static explicit operator int(ClickHouseDecimal value)
     {
