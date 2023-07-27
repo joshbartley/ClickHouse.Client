@@ -148,4 +148,12 @@ public class DapperTests : AbstractConnectionTestFixture
         Assert.IsInstanceOf<decimal>(result);
         Assert.AreEqual(0.0001m, result);
     }
+    [Test]
+    public async Task ShouldExecuteSelectReturningNullableDecimal()
+    {
+        string sql = "SELECT toDecimal128(0.0001, 8)";
+        var result = (await connection.QueryAsync<decimal?>(sql)).Single();
+        Assert.IsInstanceOf<decimal?>(result);
+        Assert.AreEqual(0.0001m, result.Value);
+    }
 }
