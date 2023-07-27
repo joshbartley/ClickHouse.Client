@@ -178,10 +178,7 @@ public readonly struct ClickHouseDecimal
         var result = new decimal(part0, part1, part2, negative, (byte)scale);
         return result;
     }
-    public static explicit operator decimal?(ClickHouseDecimal value)
-    {
-        return default; //temp
-    }
+    
     public static explicit operator int(ClickHouseDecimal value)
     {
         return (int)(value.Mantissa * BigInteger.Pow(10, value.Scale));
